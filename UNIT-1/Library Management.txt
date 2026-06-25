@@ -1,0 +1,45 @@
+import java.util.*;
+
+class Story {
+    String Name;
+    int quantity;
+    int price;
+
+    Story(String a, int b, int c) {
+        this.Name = a;
+        this.quantity = b;
+        this.price = c;
+    }
+
+    void displayStory() {
+        System.out.println("Book Name: " + Name);
+        System.out.println("Book Price: " + price);
+        System.out.println("Book Quantity: " + quantity);
+    }
+}
+
+public class Main { 
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+
+        int n = 1; 
+        for (int i = 1; i <= n; i++) {
+
+            System.out.println("Enter Book " + i + " Name: ");
+            String name = s.nextLine();
+
+            System.out.println("Enter Book Price: ");
+            int price = s.nextInt();
+
+            System.out.println("Enter Book Quantity: ");
+            int quantity = s.nextInt();
+            s.nextLine();
+
+                        Story s1 = new Story(name, quantity, price);
+
+            System.out.println("Book Details: ");
+            s1.displayStory();
+        }
+
+    }
+}
