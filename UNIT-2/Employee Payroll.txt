@@ -1,0 +1,67 @@
+import java.util.Scanner; 
+class Employee { 
+private int employeeId; 
+    private String employeeName; 
+    private String designation; 
+    private double basicSalary; 
+    public Employee(int employeeId, String employeeName, String designation, double basicSalary) { 
+        this.employeeId = employeeId; 
+        this.employeeName = employeeName; 
+        this.designation = designation; 
+        this.basicSalary = basicSalary; 
+    } 
+    public void setEmployeeId(int employeeId) { 
+        this.employeeId = employeeId; 
+    } 
+    public void setEmployeeName(String employeeName) { 
+        this.employeeName = employeeName; 
+    } 
+    public void setDesignation(String designation) { 
+        this.designation = designation; 
+    } 
+    public void setBasicSalary(double basicSalary) { 
+        this.basicSalary = basicSalary; 
+    } 
+    public int getEmployeeId() { 
+        return employeeId; 
+    } 
+    public String getEmployeeName() { 
+        return employeeName; 
+    } 
+    public String getDesignation() { 
+        return designation; 
+    }
+    public double getBasicSalary() { 
+        return basicSalary; 
+    } 
+    public double calculateNetSalary() { 
+        double hra = basicSalary * 0.20; 
+        double da = basicSalary * 0.10; 
+        double pf = basicSalary * 0.08; 
+        return basicSalary + hra + da - pf; 
+    } 
+    public void displayEmployeeDetails() { 
+        System.out.println("Employee Payroll Details:"); 
+        System.out.println("Employee ID: " + employeeId); 
+        System.out.println("Employee Name: " + employeeName); 
+        System.out.println("Designation: " + designation); 
+        System.out.printf("Basic Salary: ₹%.2f\n", basicSalary); 
+        System.out.printf("Net Salary: ₹%.2f\n", calculateNetSalary()); 
+    } 
+} 
+public class Solution { 
+    public static void main(String[] args) { 
+        Scanner sc = new Scanner(System.in); 
+        System.out.println("Enter Employee ID:"); 
+        int id = sc.nextInt(); 
+        sc.nextLine(); 
+        System.out.println("Enter Employee Name:"); 
+        String name = sc.nextLine(); 
+        System.out.println("Enter Designation:"); 
+        String designation = sc.nextLine(); 
+        System.out.println("Enter Basic Salary:"); 
+        double salary = sc.nextDouble(); 
+        Employee emp = new Employee(id, name, designation, salary); 
+        emp.displayEmployeeDetails(); 
+    } 
+} 
