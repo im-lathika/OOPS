@@ -1,0 +1,34 @@
+import java.util.*;
+
+class StudentInfo {
+
+    Long studentId;
+    String studentName;
+    int age;
+    int year;
+    String dob;
+    Long mobileno;
+    String department;
+    String bloodGroup;
+
+    StudentInfo(Long a, String b, int c, int d, String e, Long f, String g, String h) {
+        this.studentId = a;
+        this.studentName = b;
+        this.age = c;
+        this.year = d;
+        this.dob = e;
+        this.mobileno = f;
+        this.department = g;
+        this.bloodGroup = h;
+    }
+
+    void display() {
+        System.out.println("Student ID: " + studentId);
+        System.out.println("Student Name: " + studentName);
+        System.out.println("Age: " + age);
+        System.out.println("Year of Passing Out: " + year);
+        System.out.println("Date of Birth: " + dob);
+        System.out.println("Parent Mobile Number: " + mobileno);
+        System.out.println("Department: " + department);
+        System.out.println("Blood Group: " + bloodGroup);
+    }
