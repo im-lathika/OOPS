@@ -1,0 +1,73 @@
+import java.util.*; 
+
+interface CartOperations { 
+    void addToCart(String product, double price); 
+} 
+
+interface PaymentOperations { 
+    void makePayment(double amount);
+} 
+
+interface OrderTracking { 
+    void trackOrder(); 
+} 
+
+class AmazonShop implements CartOperations, PaymentOperations, OrderTracking { 
+    double totalAmount = 0; 
+
+    public void addToCart(String product, double price) { 
+        totalAmount += price; 
+        System.out.println(product + " added to cart."); 
+        System.out.println("Current Total: " + totalAmount); 
+    } 
+
+    public void makePayment(double amount) { 
+        if (amount >= totalAmount) { 
+            System.out.println("Payment Successful!"); 
+            System.out.println("Order Placed Successfully!"); 
+        } else { 
+            System.out.println("Insufficient Payment!"); 
+        } 
+    } 
+
+    public void trackOrder() { 
+        System.out.println("Your order is out for delivery."); 
+    } 
+} 
+
+public class Solution { 
+    public static void main(String[] args) { 
+        Scanner sc = new Scanner(System.in); 
+        AmazonShop shop = new AmazonShop(); 
+
+        System.out.println("Smart E-Commerce System"); 
+        System.out.println("1. Add Product to Cart"); 
+        System.out.println("2. Make Payment"); 
+        System.out.println("3. Track Order"); 
+        System.out.print("Enter your choice: "); 
+        int choice = sc.nextInt(); 
+        sc.nextLine(); 
+        switch (choice) { 
+            case 1: 
+                System.out.print("Enter product name: "); 
+                String product = sc.nextLine(); 
+                System.out.print("Enter product price: "); 
+                double price = sc.nextDouble(); 
+                shop.addToCart(product, price); 
+                break; 
+
+            case 2: 
+                System.out.print("Enter payment amount: "); 
+                double payment = sc.nextDouble(); 
+                shop.makePayment(payment); 
+                break; 
+
+            case 3: 
+                shop.trackOrder(); 
+                break; 
+
+            default: 
+                System.out.println("Invalid Choice!"); 
+        }  
+    } 
+}
