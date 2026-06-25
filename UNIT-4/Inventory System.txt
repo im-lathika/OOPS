@@ -1,0 +1,107 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+class Product {
+    private String name;
+    private int quantity;
+
+    public Product(String name, int quantity) {
+        this.name = name;
+        this.quantity = quantity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void addStock(int qty) {
+        this.quantity += qty;
+    }
+
+    public void removeStock(int qty) {
+        if (qty <= quantity) {
+            this.quantity -= qty;
+        } else {
+            System.out.println("Not enough stock!");
+        }
+    }
+}
+
+class Inventory {
+    private HashMap<String, Product> stock = new HashMap<>();
+
+    public void addProduct(String name, int quantity) {
+        if (stock.containsKey(name)) {
+            stock.get(name).addStock(quantity);
+        } else {
+            stock.put(name, new Product(name, quantity));
+        }
+    }
+
+    public void removeProduct(String name, int quantity) {
+        if (stock.containsKey(name)) {
+            stock.get(name).removeStock(quantity);
+        } else {
+            System.out.println("Product not found!");
+        }
+    }
+
+    public void displayInventory() {
+        if (stock.isEmpty()) {
+            System.out.println("Inventory is empty.");
+        } else {
+            for (Map.Entry<String, Product> entry : stock.entrySet()) {
+                Product p = entry.getValue();
+                System.out.println(p.getName() + " - Quantity: " + p.getQuantity());
+            }
+        }
+    }
+}
+
+public class InventorySystem {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Inventory inventory = new Inventory();
+
+        while (true) {
+            System.out.println("\n1. Add Product");
+            System.out.println("2. Remove Product");
+            System.out.println("3. View Inventory");
+            System.out.println("4. Exit");
+            System.out.print("Enter choice: ");
+
+            int choice = sc.nextInt();
+            sc.nextLine();
+
+            if (choice == 1) {
+                System.out.print("Enter product name: ");
+                String name = sc.nextLine();
+                System.out.print("Enter quantity: ");
+                int qty = sc.nextInt();
+                inventory.addProduct(name, qty);
+
+            } else if (choice == 2) {
+                System.out.print("Enter product name: ");
+                String name = sc.nextLine();
+                System.out.print("Enter quantity to remove: ");
+                int qty = sc.nextInt();
+                inventory.removeProduct(name, qty);
+
+            } else if (choice == 3) {
+                inventory.displayInventory();
+
+            } else if (choice == 4) {
+                System.out.println("Exiting...");
+                break;
+
+            } else {
+                System.out.println("Invalid choice!");
+            }
+        }
+    }
+}
