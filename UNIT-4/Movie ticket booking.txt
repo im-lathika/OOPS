@@ -1,0 +1,133 @@
+import java.util.*;
+
+class SeatNotAvailableException extends Exception {
+    public SeatNotAvailableException(String message) {
+        super(message);
+    }
+}
+
+class Customer {
+    private String name;
+
+    public Customer(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+
+class Show {
+    private String movieName;
+    private int availableSeats;
+
+    public Show(String movieName, int seats) {
+        this.movieName = movieName;
+        this.availableSeats = seats;
+    }
+
+    public String getMovieName() {
+        return movieName;
+    }
+
+    public int getAvailableSeats() {
+        return availableSeats;
+    }
+
+    public void bookSeat(int seats) throws SeatNotAvailableException {
+        if (seats > availableSeats) {
+            throw new SeatNotAvailableException("Not enough seats available!");
+        }
+        availableSeats -= seats;
+    }
+}
+
+class Booking {
+    private Customer customer;
+    private Show show;
+    private int seatsBooked;
+
+    public Booking(Customer customer, Show show, int seats) {
+        this.customer = customer;
+        this.show = show;
+        this.seatsBooked = seats;
+    }
+
+    public void displayBooking() {
+        System.out.println("\nBooking Successful!");
+        System.out.println("Customer: " + customer.getName());
+        System.out.println("Movie: " + show.getMovieName());
+        System.out.println("Seats Booked: " + seatsBooked);
+    }
+}
+
+public class MovieTicketSystem {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        List<Show> shows = new ArrayList<>();
+        shows.add(new Show("Leo", 50));
+        shows.add(new Show("Jailer", 40));
+        shows.add(new Show("Avengers", 30));
+
+        while (true) {
+            System.out.println("\n--- Movie Ticket Booking ---");
+            System.out.println("1. View Shows");
+            System.out.println("2. Book Ticket");
+            System.out.println("3. Exit");
+            System.out.print("Enter choice: ");
+
+            int choice = sc.nextInt();
+            sc.nextLine();
+
+            if (choice == 1) {
+                System.out.println("\nAvailable Shows:");
+                for (int i = 0; i < shows.size(); i++) {
+                    Show s = shows.get(i);
+                    System.out.println((i + 1) + ". " + s.getMovieName() +
+                            " | Seats: " + s.getAvailableSeats());
+                }
+
+            } else if (choice == 2) {
+                try {
+                    System.out.print("Enter your name: ");
+                    String name = sc.nextLine();
+
+                    System.out.println("Select Show:");
+                    for (int i = 0; i < shows.size(); i++) {
+                        System.out.println((i + 1) + ". " + shows.get(i).getMovieName());
+                    }
+
+                    int showChoice = sc.nextInt();
+                    System.out.print("Enter number of seats: ");
+                    int seats = sc.nextInt();
+
+                    Show selectedShow = shows.get(showChoice - 1);
+
+                    selectedShow.bookSeat(seats);
+
+                    Customer customer = new Customer(name);
+                    Booking booking = new Booking(customer, selectedShow, seats);
+
+                    booking.displayBooking();
+
+                } catch (SeatNotAvailableException e) {
+                    System.out.println("Error: " + e.getMessage());
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Error: Invalid show selection!");
+                } catch (InputMismatchException e) {
+                    System.out.println("Error: Invalid input!");
+                    sc.nextLine();
+                }
+
+            } else if (choice == 3) {
+                System.out.println("Thank you!");
+                break;
+
+            } else {
+                System.out.println("Invalid choice!");
+            }
+        }
+    }
+}
