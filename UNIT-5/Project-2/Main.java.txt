@@ -1,0 +1,35 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        ShoppingCart cart = new ShoppingCart();
+
+        System.out.println("Online Shopping Payment");
+        System.out.print("Enter total amount: ");
+        int amount = sc.nextInt();
+
+        System.out.println("Select Payment Method");
+        System.out.println("1. Card");
+        System.out.println("2. Net Banking");
+        System.out.println("3. Cash");
+
+        int choice = sc.nextInt();
+
+        if (choice == 1) {
+            cart.setPaymentMethod(new CardPayment());
+        } else if (choice == 2) {
+            cart.setPaymentMethod(new NetBankingPayment());
+        } else if (choice == 3) {
+            cart.setPaymentMethod(new CashPayment());
+        } else {
+            System.out.println("Invalid option");
+            sc.close();
+            return;
+        }
+
+        cart.checkout(amount);
+        sc.close();
+    }
+}

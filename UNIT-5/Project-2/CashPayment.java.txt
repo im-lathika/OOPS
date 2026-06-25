@@ -1,0 +1,5 @@
+class CashPayment implements PaymentMethod { 
+    public void pay(int amount) { 
+        System.out.println("Amount Rs." + amount + " will be paid in cash"); 
+    } 
+}

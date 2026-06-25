@@ -1,0 +1,5 @@
+class NetBankingPayment implements PaymentMethod { 
+public void pay(int amount) { 
+System.out.println("Amount Rs." + amount + " paid using Net Banking"); 
+} 
+} 
