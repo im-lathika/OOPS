@@ -1,0 +1,63 @@
+import javax.swing.*; 
+import java.awt.event.*; 
+ 
+public class ChatFrame extends JFrame { 
+    private ChatService service = new ChatService(); 
+    private JTextArea chatArea; 
+    private JTextField inputField; 
+    private JButton sendButton; 
+ 
+    public ChatFrame() { 
+        setTitle("Chat Simulation"); 
+        setSize(400, 400); 
+        setLayout(null); 
+        setDefaultCloseOperation(EXIT_ON_CLOSE); 
+ 
+        chatArea = new JTextArea(); 
+        chatArea.setBounds(20, 20, 340, 250); 
+        chatArea.setEditable(false); 
+        add(chatArea); 
+ 
+        inputField = new JTextField(); 
+        inputField.setBounds(20, 290, 240, 30); 
+        add(inputField); 
+ 
+        sendButton = new JButton("Send"); 
+        sendButton.setBounds(270, 290, 90, 30); 
+        add(sendButton); 
+ 
+        sendButton.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+                String text = inputField.getText(); 
+                if (!text.isEmpty()) { 
+                    service.sendMessage("You", text); 
+                    updateChat(); 
+                    inputField.setText(""); 
+ 
+                    new AutoReplyThread(() -> { 
+                        service.sendMessage("Bot", generateReply(text)); 
+                        updateChat(); 
+                    }).start(); 
+                } 
+            } 
+        }); 
+ 
+        setVisible(true); 
+    } 
+ 
+    private void updateChat() { 
+        StringBuilder sb = new StringBuilder(); 
+        for (Message m : service.getMessages()) { 
+            sb.append(m.getSender()).append(": ").append(m.getContent()).append("\n"); 
+        } 
+        chatArea.setText(sb.toString()); 
+    } 
+ 
+    private String generateReply(String msg) { 
+        msg = msg.toLowerCase(); 
+        if (msg.contains("hi")) return "Hello"; 
+        if (msg.contains("how are you")) return "I am fine"; 
+        if (msg.contains("name")) return "I am ChatBot"; 
+        return "Ok"; 
+    } 
+} 

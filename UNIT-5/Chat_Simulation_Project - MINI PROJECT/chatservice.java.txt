@@ -1,0 +1,13 @@
+import java.util.*; 
+ 
+public class ChatService { 
+    private List<Message> messages = new ArrayList<>(); 
+ 
+    public void sendMessage(String sender, String content) { 
+        messages.add(new Message(sender, content)); 
+    } 
+ 
+    public List<Message> getMessages() { 
+        return messages; 
+    } 
+} 
