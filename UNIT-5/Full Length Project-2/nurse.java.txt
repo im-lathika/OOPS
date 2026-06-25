@@ -1,0 +1,15 @@
+class Nurse extends Staff { 
+    private String shift; 
+ 
+    public Nurse(String name, int id, double salary, String shift) { 
+        super(name, id, salary); 
+        this.shift = shift; 
+    } 
+ 
+    public void display() { 
+        System.out.println("Staff Type: Nurse"); 
+        super.display(); 
+        System.out.println("Shift: " + shift); 
+        System.out.println(); 
+    } 
+} 

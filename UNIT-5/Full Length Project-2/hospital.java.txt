@@ -1,0 +1,25 @@
+import java.util.*; 
+ 
+class Hospital { 
+    private List<Staff> staffList; 
+ 
+    public Hospital() { 
+        staffList = new ArrayList<>(); 
+    } 
+ 
+    public void addStaff(Staff s) { 
+        staffList.add(s); 
+        System.out.println("Staff added"); 
+    } 
+ 
+    public void displayAllStaff() { 
+        if (staffList.isEmpty()) { 
+            System.out.println("No staff available"); 
+            return; 
+        } 
+ 
+        for (Staff s : staffList) { 
+            s.display(); 
+        } 
+    } 
+} 
