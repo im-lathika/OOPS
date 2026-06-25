@@ -1,0 +1,94 @@
+import java.util.*;
+
+class Hospital {
+    void calculateBill() {
+        System.out.println("Hospital Bill Calculation");
+    }
+}
+
+class GeneralCheckup extends Hospital {
+    int consultationFee;
+
+    GeneralCheckup(int consultationFee) {
+        this.consultationFee = consultationFee;
+    }
+
+    void calculateBill() {
+        System.out.println("General Checkup Bill:");
+        System.out.println("Total Bill: " + consultationFee);
+    }
+}
+
+class InPatient extends Hospital {
+    int days, roomCharge;
+
+    InPatient(int days, int roomCharge) {
+        this.days = days;
+        this.roomCharge = roomCharge;
+    }
+
+    void calculateBill() {
+        int total = days * roomCharge;
+        System.out.println("In-Patient Bill:");
+        System.out.println("Total Bill: " + total);
+    }
+}
+
+class SurgeryPatient extends Hospital {
+    int surgeryCharge, medicineCharge, doctorFee;
+
+    SurgeryPatient(int surgeryCharge, int medicineCharge, int doctorFee) {
+        this.surgeryCharge = surgeryCharge;
+        this.medicineCharge = medicineCharge;
+        this.doctorFee = doctorFee;
+    }
+    void calculateBill() {
+        int total = surgeryCharge + medicineCharge + doctorFee;
+        System.out.println("Surgery Patient Bill:");
+        System.out.println("Total Bill: " + total);
+    }
+}
+
+public class Solution {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        Hospital h;
+
+        System.out.println("Welcome to Hospital Management System");
+        System.out.println("1. General Checkup");
+        System.out.println("2. In-Patient");
+        System.out.println("3. Surgery Patient");
+        System.out.print("Enter your choice (1-3): ");
+
+        int choice = sc.nextInt();
+
+        if (choice == 1) {
+            System.out.println("Enter Consultation Fee: ");
+            int fee = sc.nextInt();
+            h = new GeneralCheckup(fee);
+            h.calculateBill();
+        }
+        else if (choice == 2) {
+            System.out.println("Enter Number of Days: ");
+            int days = sc.nextInt();
+            System.out.println("Enter Room Charge per Day: ");
+            int charge = sc.nextInt();
+            h = new InPatient(days, charge);
+            h.calculateBill();
+        }
+        else if (choice == 3) {
+            System.out.println("Enter Surgery Charge: ");
+            int surgery = sc.nextInt();
+            System.out.println("Enter Medicine Charge: ");
+            int medicine = sc.nextInt();
+            System.out.println("Enter Doctor Fee: ");
+            int doctor = sc.nextInt();
+            h = new SurgeryPatient(surgery, medicine, doctor);
+            h.calculateBill();
+        }
+        else {
+            System.out.println("Invalid Choice");
+        }
+    }
+}
